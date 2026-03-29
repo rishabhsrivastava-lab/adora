@@ -105,7 +105,29 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git remote:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(curl -s -o assets/images/AA0030/videos/ar1x1/Adora-Coatings-Gallery-Banner-S.mp4 \"https://prd-upmarket.s3.ap-south-1.amazonaws.com/AA0030/videos/ar1x1/Adora-Coatings-Gallery-Banner-S.mp4\")",
+      "Bash(cp assets/images/AA0030/videos/ar1x1/Adora-Coatings-Gallery-Banner-S.mp4 images/AA0030/videos/ar1x1/)",
+      "Bash(AWS_PROFILE=adora aws ses get-account-sending-enabled --region us-east-1)",
+      "Bash(AWS_PROFILE=adora aws ses get-account-sending-enabled --region ap-south-1)",
+      "Bash(AWS_PROFILE=adora aws lambda create-function --function-name adora-contact-form --runtime nodejs20.x --handler index.handler --role arn:aws:iam::875378932830:role/adora-contact-lambda-role --zip-file fileb://function.zip --timeout 10 --memory-size 128 --environment 'Variables={TO_EMAIL=info@adoracoatings.com,FROM_EMAIL=noreply@adoracoatings.com,ALLOWED_ORIGINS=\"\"\"\"adoracoatings.com,d2k9dhcq9hjnzz.cloudfront.net,192.168.68.102\"\"\"\"}' --region ap-south-1)",
+      "Bash(AWS_PROFILE=adora aws lambda create-function-url-config --function-name adora-contact-form --auth-type NONE --cors '{\"\"\"\"AllowOrigins\"\"\"\":[\"\"\"\"https://adoracoatings.com\"\"\"\",\"\"\"\"https://www.adoracoatings.com\"\"\"\",\"\"\"\"https://d2k9dhcq9hjnzz.cloudfront.net\"\"\"\",\"\"\"\"http://192.168.68.102:3000\"\"\"\"],\"\"\"\"AllowMethods\"\"\"\":[\"\"\"\"POST\"\"\"\"],\"\"\"\"AllowHeaders\"\"\"\":[\"\"\"\"Content-Type\"\"\"\"]}' --region ap-south-1)",
+      "Bash(curl -s -X POST \"https://kvns5taoxay7ysmxxqp2nqlfru0rxclr.lambda-url.ap-south-1.on.aws/\" -H \"Content-Type: application/json\" -H \"Origin: https://d2k9dhcq9hjnzz.cloudfront.net\" -d '{\"\"name\"\":\"\"Test User\"\",\"\"email\"\":\"\"test@example.com\"\",\"\"message\"\":\"\"This is a test message\"\",\"\"page\"\":\"\"/test\"\"}')",
+      "Bash(AWS_PROFILE=adora aws lambda get-function-url-config --function-name adora-contact-form --region ap-south-1)",
+      "Bash(curl -s -X POST \"https://kvns5taoxay7ysmxxqp2nqlfru0rxclr.lambda-url.ap-south-1.on.aws/\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test\"\",\"\"email\"\":\"\"test@test.com\"\",\"\"message\"\":\"\"Test message\"\",\"\"page\"\":\"\"/test\"\"}')",
+      "Bash(curl -s -X POST \"https://kvns5taoxay7ysmxxqp2nqlfru0rxclr.lambda-url.ap-south-1.on.aws/\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test\"\",\"\"email\"\":\"\"test@test.com\"\",\"\"message\"\":\"\"Hello\"\",\"\"page\"\":\"\"/\"\"}')",
+      "Bash(AWS_PROFILE=adora aws lambda invoke --function-name adora-contact-form --cli-binary-format raw-in-base64-out --payload file:///tmp/lambda-payload.json --region ap-south-1 /tmp/lambda-output.json)",
+      "Bash(AWS_PROFILE=adora aws ses list-identities --identity-type EmailAddress --region ap-south-1)",
+      "Bash(AWS_PROFILE=adora aws ses get-identity-verification-attributes --identities info@adoracoatings.com --region ap-south-1)",
+      "Bash(AWS_PROFILE=adora aws lambda update-function-configuration --function-name adora-contact-form --environment 'Variables={TO_EMAIL=info@adoracoatings.com,FROM_EMAIL=info@adoracoatings.com,ALLOWED_ORIGINS=\"\"\"\"adoracoatings.com,d2k9dhcq9hjnzz.cloudfront.net,192.168.68.102\"\"\"\"}' --region ap-south-1)",
+      "Bash(curl -s -X POST \"https://kvns5taoxay7ysmxxqp2nqlfru0rxclr.lambda-url.ap-south-1.on.aws/\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test\"\",\"\"email\"\":\"\"info@adoracoatings.com\"\",\"\"message\"\":\"\"Hello test\"\",\"\"page\"\":\"\"/\"\"}')",
+      "Bash(curl -s -X POST \"https://rj3e3jqhx3fyadw34qr66y3j6u0khcjq.lambda-url.ap-south-1.on.aws/\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test User\"\",\"\"email\"\":\"\"info@adoracoatings.com\"\",\"\"message\"\":\"\"Test message from form\"\",\"\"page\"\":\"\"/contact\"\"}')",
+      "Bash(curl -s -X POST \"https://c3exk2htq5.execute-api.ap-south-1.amazonaws.com/contact\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test User\"\",\"\"email\"\":\"\"info@adoracoatings.com\"\",\"\"message\"\":\"\"Test from API Gateway\"\",\"\"page\"\":\"\"/contact\"\"}')",
+      "Bash(grep -o '.\\\\{0,20\\\\}name=\"\"mobile\"\".\\\\{0,20\\\\}' pages/contact/contact-us/index.html)",
+      "Bash(grep -o '.\\\\{0,30\\\\}otp.\\\\{0,30\\\\}' index.html)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
     ]
   }
 }

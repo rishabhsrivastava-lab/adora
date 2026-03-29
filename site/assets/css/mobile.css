@@ -92,6 +92,9 @@ img, video, iframe {
 .tab-content { display: none; }
 .tab-content.is-active { display: block; }
 
+/* ── Map mobile label — hidden on desktop ──────────────────── */
+.map-mobile-label { display: none; }
+
 /* ── Swiper slides always visible but contained ────────────── */
 .swiper-slide { visibility: visible !important; }
 .swiper { overflow: hidden !important; }
@@ -482,8 +485,36 @@ img, video, iframe {
     padding-right: 1.25rem !important;
   }
 
+  /* ── Contact form rows — stack on mobile ───────────────────── */
+  .cf-row-email,
+  .cf-row-name {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .cf-row-email > span {
+    text-align: center;
+    padding: 0.25rem 0 !important;
+  }
+
   /* ── Map ──────────────────────────────────────────────────── */
-  .map { min-height: 18.75rem !important; }
+  .map { min-height: 18.75rem !important; position: relative !important; }
+  .map-mobile-label {
+    display: block !important;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 10;
+    background: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-family: Montserrat, sans-serif;
+    color: #333;
+    line-height: 1.4;
+    max-width: 70%;
+    pointer-events: none;
+  }
 
   /* ── Tabs — horizontal scroll like original ───────────────── */
   .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
@@ -501,6 +532,14 @@ img, video, iframe {
     opacity: 0.8;
     z-index: 5;
     /* visibility controlled by is-active class from JS */
+  }
+
+  /* ── Portfolio gallery card titles smaller ─────────────────── */
+  .items .mdc-card__title-text {
+    font-size: 1rem !important;
+  }
+  .items .mdc-card__subtitle-text {
+    font-size: 0.8rem !important;
   }
 
   /* ── CTA wrapper no overflow ─────────────────────────────── */
@@ -553,6 +592,46 @@ img, video, iframe {
     padding: 1rem 1rem 0.5rem !important;
   }
 
+  /* ── Portfolio Why Choose Us text — no slider ─────────────── */
+  #AA0030FiCABoqAk {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  #AA0030FiCABoqAk .no-swiper-portfolio-text,
+  #AA0030FiCABoqAk .portfolio-text-inner,
+  #AA0030FiCABoqAk .rich-text-content {
+    height: auto !important;
+    overflow: visible !important;
+    width: 100% !important;
+  }
+  #AA0030FiCABoqAk .mdc-fab,
+  #AA0030FiCABoqAk .swiper-pagination {
+    display: none !important;
+  }
+
+  /* ── Portfolio banner video — square on mobile ─────────────── */
+  #AA0030jDac2yFv .carousel__media {
+    aspect-ratio: 1/1 !important;
+  }
+  #AA0030jDac2yFv video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* ── Gap before video section + proper aspect ratio ──────── */
+  #AA00305OCEiNgbw {
+    margin-top: 1rem !important;
+  }
+  #AA00305OCEiNgbw .carousel__media {
+    aspect-ratio: 1/1 !important;
+  }
+  #AA00305OCEiNgbw video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
   /* ── Process video — square on mobile ──────────────────────── */
   #AA00305OCEiNgbw .carousel__media {
     aspect-ratio: 1/1 !important;
@@ -563,15 +642,18 @@ img, video, iframe {
     object-fit: cover !important;
   }
 
-  /* ── About page: hero swiper full width ────────────────────── */
-  #AA0030QXmgxoo0S {
+  /* ── Hero/banner images full width on mobile ──────────────── */
+  #AA0030QXmgxoo0S,
+  .section.panel.image-panel:first-of-type,
+  .section.tb {
     padding: 0 !important;
     margin: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    position: relative !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+  }
+  .section.panel.image-panel:first-of-type .carousel__media,
+  #AA0030QXmgxoo0S .carousel__media {
+    width: 100% !important;
   }
 
   /* ── About page: About Us text — no slider, full height ──── */
@@ -579,6 +661,8 @@ img, video, iframe {
     overflow: visible !important;
     height: auto !important;
     max-height: none !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
   #AA0030SMKxauMMv .no-swiper-about,
   #AA0030SMKxauMMv .swiper,
@@ -640,10 +724,16 @@ img, video, iframe {
     width: auto !important;
   }
   #AA0030ewDlxBsXX td img {
-    max-width: 4rem !important;
+    max-width: 3rem !important;
     height: auto !important;
     margin: 0 auto !important;
     display: block !important;
+  }
+  /* Labels only — skip first row (title) */
+  #AA0030ewDlxBsXX tr:nth-child(3) td,
+  #AA0030ewDlxBsXX tr:nth-child(3) td span,
+  #AA0030ewDlxBsXX tr:nth-child(3) td * {
+    font-size: 0.7rem !important;
   }
 
   /* ── About page: Team — photo then bio, stacked vertically ─ */
@@ -726,10 +816,10 @@ img, video, iframe {
   .map { min-height: 15rem !important; }
   .business-logo-wrapper img { max-width: 9rem; }
 
-  /* ── Tighter spacing on phone ────────────────────────────── */
-  .panel.text-panel { padding: 0.75rem !important; }
+  /* ── Phone spacing ──────────────────────────────────────── */
+  .panel.text-panel { padding: 1.25rem !important; }
   [class*="AA0030"].panel {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
   }
 }
