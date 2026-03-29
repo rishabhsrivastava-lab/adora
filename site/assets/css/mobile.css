@@ -580,7 +580,9 @@ img, video, iframe {
     height: auto !important;
     max-height: none !important;
   }
-  #AA0030SMKxauMMv .swiper {
+  #AA0030SMKxauMMv .no-swiper-about,
+  #AA0030SMKxauMMv .swiper,
+  #AA0030SMKxauMMv [class*="no-swiper"] {
     overflow: visible !important;
     height: auto !important;
   }
@@ -589,16 +591,17 @@ img, video, iframe {
     transform: none !important;
     display: block !important;
   }
-  #AA0030SMKxauMMv .swiper-slide {
+  #AA0030SMKxauMMv .swiper-slide,
+  #AA0030SMKxauMMv .rich-text-content {
     height: auto !important;
     min-height: auto !important;
     width: 100% !important;
     position: relative !important;
   }
-  /* Hide swiper nav buttons on this text section */
   #AA0030SMKxauMMv .swiper-button-prev,
   #AA0030SMKxauMMv .swiper-button-next,
-  #AA0030SMKxauMMv .swiper-pagination {
+  #AA0030SMKxauMMv .swiper-pagination,
+  #AA0030SMKxauMMv .mdc-fab {
     display: none !important;
   }
 
