@@ -20,6 +20,12 @@ function checkRateLimit() {
   return requestCount <= MAX_REQUESTS_PER_HOUR;
 }
 
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+}
+
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -108,14 +114,14 @@ Sent from adoracoatings.com contact form
     const emailHtml = `
 <h2>New Enquiry from Adora Coatings Website</h2>
 <table style="font-family:Arial;font-size:14px;border-collapse:collapse;">
-<tr><td style="padding:8px;font-weight:bold;">Name:</td><td style="padding:8px;">${name.trim()}</td></tr>
-${email ? `<tr><td style="padding:8px;font-weight:bold;">Email:</td><td style="padding:8px;"><a href="mailto:${email}">${email}</a></td></tr>` : ""}
-${mobile ? `<tr><td style="padding:8px;font-weight:bold;">Mobile:</td><td style="padding:8px;"><a href="tel:${mobile}">${mobile}</a></td></tr>` : ""}
-${subject ? `<tr><td style="padding:8px;font-weight:bold;">Subject:</td><td style="padding:8px;">${subject.trim()}</td></tr>` : ""}
-<tr><td style="padding:8px;font-weight:bold;">Page:</td><td style="padding:8px;">${page || "Unknown"}</td></tr>
+<tr><td style="padding:8px;font-weight:bold;">Name:</td><td style="padding:8px;">${escapeHtml(name.trim())}</td></tr>
+${email ? `<tr><td style="padding:8px;font-weight:bold;">Email:</td><td style="padding:8px;"><a href="mailto:${encodeURIComponent(email)}">${escapeHtml(email)}</a></td></tr>` : ""}
+${mobile ? `<tr><td style="padding:8px;font-weight:bold;">Mobile:</td><td style="padding:8px;"><a href="tel:${encodeURIComponent(mobile)}">${escapeHtml(mobile)}</a></td></tr>` : ""}
+${subject ? `<tr><td style="padding:8px;font-weight:bold;">Subject:</td><td style="padding:8px;">${escapeHtml(subject.trim())}</td></tr>` : ""}
+<tr><td style="padding:8px;font-weight:bold;">Page:</td><td style="padding:8px;">${escapeHtml(page || "Unknown")}</td></tr>
 </table>
 <h3>Message:</h3>
-<p style="font-family:Arial;font-size:14px;white-space:pre-wrap;">${message.trim()}</p>
+<p style="font-family:Arial;font-size:14px;white-space:pre-wrap;">${escapeHtml(message.trim())}</p>
 <hr>
 <p style="font-size:12px;color:#666;">Sent from adoracoatings.com contact form</p>
     `.trim();
@@ -124,7 +130,7 @@ ${subject ? `<tr><td style="padding:8px;font-weight:bold;">Subject:</td><td styl
       Source: FROM_EMAIL,
       Destination: { ToAddresses: [TO_EMAIL] },
       Message: {
-        Subject: { Data: `[Adora Coatings] New enquiry from ${name.trim()}` },
+        Subject: { Data: `[Adora Coatings] New enquiry from ${name.trim().slice(0, 100)}` },
         Body: {
           Text: { Data: emailBody },
           Html: { Data: emailHtml },
