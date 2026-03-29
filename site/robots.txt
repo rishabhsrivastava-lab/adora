@@ -2,5 +2,9 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /_next/
+Disallow: /assets/external/
 
 Sitemap: https://www.adoracoatings.com/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1
