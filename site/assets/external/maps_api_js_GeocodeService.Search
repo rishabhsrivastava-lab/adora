@@ -1,0 +1,163 @@
+/**/_xdc_._l2jed4 && _xdc_._l2jed4( {
+   "results" : 
+   [
+      {
+         "address_components" : 
+         [
+            {
+               "long_name" : "Adora Coatings",
+               "short_name" : "Adora Coatings",
+               "types" : 
+               [
+                  "premise"
+               ]
+            },
+            {
+               "long_name" : "175/1",
+               "short_name" : "175/1",
+               "types" : 
+               [
+                  "premise"
+               ]
+            },
+            {
+               "long_name" : "Pavilion Road",
+               "short_name" : "Pavilion Rd",
+               "types" : 
+               [
+                  "route"
+               ]
+            },
+            {
+               "long_name" : "Jaya Nagar 1st Block",
+               "short_name" : "Jaya Nagar 1st Block",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_3"
+               ]
+            },
+            {
+               "long_name" : "Byrasandra",
+               "short_name" : "Byrasandra",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_2"
+               ]
+            },
+            {
+               "long_name" : "Jayanagar",
+               "short_name" : "Jayanagar",
+               "types" : 
+               [
+                  "political",
+                  "sublocality",
+                  "sublocality_level_1"
+               ]
+            },
+            {
+               "long_name" : "Bengaluru",
+               "short_name" : "Bengaluru",
+               "types" : 
+               [
+                  "locality",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Bengaluru Urban",
+               "short_name" : "Bengaluru Urban",
+               "types" : 
+               [
+                  "administrative_area_level_3",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Bangalore Division",
+               "short_name" : "Bangalore Division",
+               "types" : 
+               [
+                  "administrative_area_level_2",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "Karnataka",
+               "short_name" : "KA",
+               "types" : 
+               [
+                  "administrative_area_level_1",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "India",
+               "short_name" : "IN",
+               "types" : 
+               [
+                  "country",
+                  "political"
+               ]
+            },
+            {
+               "long_name" : "560011",
+               "short_name" : "560011",
+               "types" : 
+               [
+                  "postal_code"
+               ]
+            }
+         ],
+         "formatted_address" : "Adora Coatings, 175/1, Pavilion Rd, Jaya Nagar 1st Block, Byrasandra, Jayanagar, Bengaluru, Karnataka 560011, India",
+         "geometry" : 
+         {
+            "location" : 
+            {
+               "lat" : 12.9344498,
+               "lng" : 77.58699620000002
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : 
+            {
+               "northeast" : 
+               {
+                  "lat" : 12.9357348302915,
+                  "lng" : 77.58830728029152
+               },
+               "southwest" : 
+               {
+                  "lat" : 12.9330368697085,
+                  "lng" : 77.58560931970851
+               }
+            }
+         },
+         "navigation_points" : 
+         [
+            {
+               "location" : 
+               {
+                  "latitude" : 12.9343764,
+                  "longitude" : 77.5869527
+               }
+            }
+         ],
+         "place_id" : "ChIJdaA5k7QVrjsRyBkCGlJHqx0",
+         "plus_code" : 
+         {
+            "compound_code" : "WHMP+QQ Bengaluru, Karnataka, India",
+            "global_code" : "7J4VWHMP+QQ"
+         },
+         "types" : 
+         [
+            "establishment",
+            "painter",
+            "point_of_interest"
+         ]
+      }
+   ],
+   "status" : "OK"
+} )

@@ -1,0 +1,19 @@
+[
+  { "url": "https://adoracoatings.com/", "output": "index.html", "path": "/" },
+  { "url": "https://adoracoatings.com/pages/contact/contact-us", "output": "pages/contact/contact-us/index.html", "path": "/pages/contact/contact-us" },
+  { "url": "https://adoracoatings.com/page/about-adora-coatings", "output": "page/about-adora-coatings/index.html", "path": "/page/about-adora-coatings" },
+  { "url": "https://adoracoatings.com/page/legal-information", "output": "page/legal-information/index.html", "path": "/page/legal-information" },
+  { "url": "https://adoracoatings.com/page/cap-arreghini", "output": "page/cap-arreghini/index.html", "path": "/page/cap-arreghini" },
+  { "url": "https://adoracoatings.com/page/interior-exterior-projects", "output": "page/interior-exterior-projects/index.html", "path": "/page/interior-exterior-projects" },
+  { "url": "https://adoracoatings.com/galleries/dolci-desserts-bangalore", "output": "galleries/dolci-desserts-bangalore/index.html", "path": "/galleries/dolci-desserts-bangalore" },
+  { "url": "https://adoracoatings.com/galleries/designer-flooring", "output": "galleries/designer-flooring/index.html", "path": "/galleries/designer-flooring" },
+  { "url": "https://adoracoatings.com/galleries/watsons-chennai", "output": "galleries/watsons-chennai/index.html", "path": "/galleries/watsons-chennai" },
+  { "url": "https://adoracoatings.com/galleries/essentially-metal", "output": "galleries/essentially-metal/index.html", "path": "/galleries/essentially-metal" },
+  { "url": "https://adoracoatings.com/galleries/world-on-the-wall", "output": "galleries/world-on-the-wall/index.html", "path": "/galleries/world-on-the-wall" },
+  { "url": "https://adoracoatings.com/galleries/by-the-peepal", "output": "galleries/by-the-peepal/index.html", "path": "/galleries/by-the-peepal" },
+  { "url": "https://adoracoatings.com/galleries/fundermax", "output": "galleries/fundermax/index.html", "path": "/galleries/fundermax" },
+  { "url": "https://adoracoatings.com/galleries/garuda-mall", "output": "galleries/garuda-mall/index.html", "path": "/galleries/garuda-mall" },
+  { "url": "https://adoracoatings.com/galleries/microsoft-office--mumbai", "output": "galleries/microsoft-office--mumbai/index.html", "path": "/galleries/microsoft-office--mumbai" },
+  { "url": "https://adoracoatings.com/galleries/decorative-walls---private-residence-1", "output": "galleries/decorative-walls---private-residence-1/index.html", "path": "/galleries/decorative-walls---private-residence-1" },
+  { "url": "https://adoracoatings.com/galleries/decorative-walls---private-residence-2-", "output": "galleries/decorative-walls---private-residence-2-/index.html", "path": "/galleries/decorative-walls---private-residence-2-" }
+]

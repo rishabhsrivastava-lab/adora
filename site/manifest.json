@@ -1,0 +1,15 @@
+{
+  "name": "Adora Coatings",
+  "short_name": "Adora",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#1a1a2e",
+  "theme_color": "#c9a96e",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

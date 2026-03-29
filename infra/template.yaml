@@ -1,0 +1,202 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  Adora Coatings Static Website - S3 + CloudFront + HTTPS.
+  Must be deployed in us-east-1 (ACM certificates for CloudFront require it).
+
+Parameters:
+  DomainName:
+    Type: String
+    Default: adoracoatings.com
+    Description: The root domain name (without www)
+
+  BucketName:
+    Type: String
+    Default: www.adoracoatings.com
+    Description: S3 bucket name (must be globally unique)
+
+Resources:
+
+  # ── S3 Bucket (private, CloudFront-only access) ──────────────────
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Project
+          Value: adora-coatings
+
+  # ── Origin Access Control (OAC) ──────────────────────────────────
+  CloudFrontOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${AWS::StackName}-oac'
+        Description: OAC for Adora Coatings S3 bucket
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  # ── S3 Bucket Policy (CloudFront only) ───────────────────────────
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref WebsiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudFrontServicePrincipal
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub '${WebsiteBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}'
+
+  # ── ACM Certificate (must be in us-east-1) ───────────────────────
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      SubjectAlternativeNames:
+        - !Sub '*.${DomainName}'
+        - !Sub 'www.${DomainName}'
+      ValidationMethod: DNS
+      Tags:
+        - Key: Project
+          Value: adora-coatings
+
+  # ── CloudFront Response Headers Policy (security headers) ────────
+  SecurityHeadersPolicy:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: !Sub '${AWS::StackName}-security-headers'
+        SecurityHeadersConfig:
+          StrictTransportSecurity:
+            AccessControlMaxAgeSec: 63072000
+            IncludeSubdomains: true
+            Override: true
+            Preload: true
+          ContentTypeOptions:
+            Override: true
+          FrameOptions:
+            FrameOption: DENY
+            Override: true
+          ReferrerPolicy:
+            ReferrerPolicy: strict-origin-when-cross-origin
+            Override: true
+          XSSProtection:
+            ModeBlock: true
+            Override: true
+            Protection: true
+
+  # ── CloudFront Function (URL rewriting) ──────────────────────────
+  URLRewriteFunction:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: !Sub '${AWS::StackName}-url-rewrite'
+      AutoPublish: true
+      FunctionConfig:
+        Comment: 'Rewrite directory paths to index.html'
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+          var request = event.request;
+          var uri = request.uri;
+          // Root path - let DefaultRootObject handle it
+          if (uri === '/') return request;
+          // Strip trailing slash for consistency
+          if (uri.endsWith('/')) {
+            uri = uri.slice(0, -1);
+          }
+          // If no file extension, append /index.html
+          if (!uri.includes('.')) {
+            request.uri = uri + '/index.html';
+          }
+          return request;
+        }
+
+  # ── CloudFront Distribution ──────────────────────────────────────
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub 'Adora Coatings - ${DomainName}'
+        Aliases:
+          - !Sub 'www.${DomainName}'
+        DefaultRootObject: index.html
+        HttpVersion: http2and3
+        PriceClass: PriceClass_200
+        Origins:
+          - Id: S3Origin
+            DomainName: !GetAtt WebsiteBucket.RegionalDomainName
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+            OriginAccessControlId: !GetAtt CloudFrontOAC.Id
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6  # CachingOptimized
+          ResponseHeadersPolicyId: !Ref SecurityHeadersPolicy
+          Compress: true
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt URLRewriteFunction.FunctionARN
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 10
+          - ErrorCode: 404
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 10
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+      Tags:
+        - Key: Project
+          Value: adora-coatings
+
+Outputs:
+  CloudFrontDomainName:
+    Description: CloudFront distribution domain name (use for IONOS CNAME)
+    Value: !GetAtt CloudFrontDistribution.DomainName
+    Export:
+      Name: !Sub '${AWS::StackName}-cf-domain'
+
+  CloudFrontDistributionId:
+    Description: CloudFront distribution ID (for cache invalidation)
+    Value: !Ref CloudFrontDistribution
+
+  S3BucketName:
+    Description: S3 bucket name
+    Value: !Ref WebsiteBucket
+
+  CertificateArn:
+    Description: ACM certificate ARN
+    Value: !Ref Certificate
+
+  DNSInstructions:
+    Description: DNS setup instructions
+    Value: !Sub >
+      1. Add ACM validation CNAME records to IONOS (check AWS Console > ACM for values).
+         DO NOT DELETE these records - ACM re-validates periodically.
+      2. After certificate validates, set www.${DomainName} CNAME to ${CloudFrontDistribution.DomainName}
+      3. Set ${DomainName} to redirect to https://www.${DomainName} via IONOS redirect feature.
