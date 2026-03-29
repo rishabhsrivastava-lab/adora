@@ -92,6 +92,34 @@ img, video, iframe {
 .tab-content { display: none; }
 .tab-content.is-active { display: block; }
 
+/* ── Drawer header — green background for logo visibility ──── */
+.nav-drawer .drawer__header {
+  background-color: #00484f !important;
+}
+.nav-drawer .drawer__close {
+  color: #fff !important;
+}
+
+/* ── Drawer close button fix (via JS in mobile.css won't work, adding inline) ── */
+
+/* ── WhatsApp floating button — fixed on screen ────────────── */
+.social-media.floating.no-follow {
+  position: fixed !important;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  z-index: 9999 !important;
+}
+.social-media.floating.no-follow .social-btn {
+  display: block !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+.social-media.floating.no-follow .social-btn.whatsapp {
+  background-image: url(/images/whatsapp_floating.png) !important;
+}
+
 /* ── Map mobile label — hidden on desktop ──────────────────── */
 .map-mobile-label { display: none; }
 

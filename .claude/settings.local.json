@@ -124,7 +124,11 @@
       "Bash(curl -s -X POST \"https://rj3e3jqhx3fyadw34qr66y3j6u0khcjq.lambda-url.ap-south-1.on.aws/\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test User\"\",\"\"email\"\":\"\"info@adoracoatings.com\"\",\"\"message\"\":\"\"Test message from form\"\",\"\"page\"\":\"\"/contact\"\"}')",
       "Bash(curl -s -X POST \"https://c3exk2htq5.execute-api.ap-south-1.amazonaws.com/contact\" -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"Test User\"\",\"\"email\"\":\"\"info@adoracoatings.com\"\",\"\"message\"\":\"\"Test from API Gateway\"\",\"\"page\"\":\"\"/contact\"\"}')",
       "Bash(grep -o '.\\\\{0,20\\\\}name=\"\"mobile\"\".\\\\{0,20\\\\}' pages/contact/contact-us/index.html)",
-      "Bash(grep -o '.\\\\{0,30\\\\}otp.\\\\{0,30\\\\}' index.html)"
+      "Bash(grep -o '.\\\\{0,30\\\\}otp.\\\\{0,30\\\\}' index.html)",
+      "Bash(pkill -f 'serve site')",
+      "Bash(curl -s -o images/whatsapp_floating.png \"https://adoracoatings.com/images/whatsapp_floating.png\")",
+      "Bash(grep -o '.\\\\{0,30\\\\}whatsapp_floating.\\\\{0,30\\\\}' index.html)",
+      "Bash(grep -o '.\\\\{0,30\\\\}wa\\\\.me.\\\\{0,30\\\\}' index.html)"
     ],
     "additionalDirectories": [
       "/tmp"
